@@ -15,7 +15,7 @@ class ProdutosTest < ApplicationSystemTestCase
     click_on "New Produto"
 
     fill_in "Descricao", with: @produto.descricao
-    fill_in "Mercado", with: @produto.mercado_id
+    fill_in "Mercado", with: @produto.codigo_mercado
     fill_in "Preco", with: @produto.preco
     click_on "Create Produto"
 
@@ -28,7 +28,7 @@ class ProdutosTest < ApplicationSystemTestCase
     click_on "Edit", match: :first
 
     fill_in "Descricao", with: @produto.descricao
-    fill_in "Mercado", with: @produto.mercado_id
+    fill_in "Mercado", with: @produto.codigo_mercado
     fill_in "Preco", with: @produto.preco
     click_on "Update Produto"
 
