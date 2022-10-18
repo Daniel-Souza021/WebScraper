@@ -1,7 +1,3 @@
-require 'nokogiri'
-require 'byebug'
-require 'watir'
-
 class Scraper
   URLS = {
     (BRASAO_CENTRO = 1) => "https://www.sitemercado.com.br/brasaochapeco/chapeco-loja-fernando-machado-centro-rua-fernando-machado",
@@ -15,13 +11,13 @@ class Scraper
       pesquisas_chaves = busca_pesquisas_chaves
       produtos = []
 
-      enderecos_sites.each do |mercado_id, endereco_site|
+      enderecos_sites.each do |codigo_mercado, endereco_site|
         pesquisas_chaves.each do |pesquisa_chave|
           browser = Watir::Browser.new(:chrome, {headless: true})
           browser.goto "#{endereco_site}/busca/#{pesquisa_chave}"
 
           25.times do
-            sleep(0.14)
+            sleep(0.10)
             browser.execute_script script_scroll_page
           end
 
@@ -30,9 +26,11 @@ class Scraper
 
           lista_produtos.each do |lista_produto|
             produtos << {
-              mercado_id: mercado_id,
+              codigo_mercado: codigo_mercado,
               descricao: lista_produto.search('h3').text,
-              preco: trata_preco(lista_produto.search('div.area-bloco-preco').text)
+              preco: trata_preco(lista_produto.search('div.area-bloco-preco').text),
+              link_imagem: "https:#{lista_produto.search('img').attr('src').text}",
+              link_endereco: "https://www.sitemercado.com.br/#{lista_produto.search('div a').attr('href').text}"
             }
           end
 
@@ -47,13 +45,10 @@ class Scraper
     private
 
     def trata_preco preco
-      preco = preco.match(/\d+.\d+/).to_s
-      preco = preco.gsub(',', '.')
-      preco
+      preco.match(/\d+.\d+/).to_s.gsub(',', '.')
     end
 
-    def busca_endereco_sites
-      urls = {}
+    def busca_endereco_sites urls = {}
       urls[Scraper::BRASAO_CENTRO] = Scraper::URLS[Scraper::BRASAO_CENTRO]
       urls[Scraper::MOURA_BAIRRO] = Scraper::URLS[Scraper::MOURA_BAIRRO]
       urls
