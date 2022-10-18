@@ -1,5 +1,10 @@
 {
   "name": "WebScraper",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^5.2.2",
+    "jquery": "^3.6.1",
+    "popper.js": "^1.16.1",
+    "rails-ujs": "^5.2.8-1"
+  }
 }

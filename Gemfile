@@ -7,8 +7,9 @@ ruby '2.6.10'
 gem 'whenever', require: false
 gem 'nokogiri'
 gem 'watir'
-
+gem 'will_paginate'
 gem 'pry'
+gem 'jquery-rails'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
