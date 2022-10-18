@@ -1,31 +1,15 @@
 <p id="notice"><%= notice %></p>
+<%= form_for(:produto, url: { action: :filtrar }, method: :post, remote: true) do |form| %>
+  <div class="col-xs-12 col-sm-12">
+    <div class="col-xs-12 col-sm-12 titulo ">
+      <%= form.label(:descricao, "Buscar Produto") %>
+      <%= form.text_field(:descricao) %>
+      <%= form.submit 'Buscar Produto' %>
+    </div>
 
-<h1>Produtos</h1>
+<% end %>
+</div>
 
-<table>
-  <thead>
-    <tr>
-      <th>Descricao</th>
-      <th>Preco</th>
-      <th>Mercado</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @produtos.each do |produto| %>
-      <tr>
-        <td><%= produto.descricao %></td>
-        <td><%= produto.preco %></td>
-        <td><%= produto.mercado_id %></td>
-        <td><%= link_to 'Show', produto %></td>
-        <td><%= link_to 'Edit', edit_produto_path(produto) %></td>
-        <td><%= link_to 'Destroy', produto, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Produto', new_produto_path %>
+<div id="lista_produtos">
+  <%= render partial: 'lista_produtos', locals: { produtos: @produtos } %>
+</div>
