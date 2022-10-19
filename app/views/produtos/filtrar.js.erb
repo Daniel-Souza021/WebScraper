@@ -1,1 +1,8 @@
 $("#lista_produtos").html("<%= j render partial: 'lista_produtos', locals: {produtos: @produtos} %>");
+
+$('.thumbnail').each(function () {
+    if (JSON.parse(localStorage.getItem('produtos')).includes($(this).data('produto'))) {
+        $(this).find('.btn-danger').removeClass('hide');
+        $(this).find('.btn-success').addClass('hide');
+    }
+});

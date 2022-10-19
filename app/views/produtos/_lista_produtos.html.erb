@@ -1,19 +1,32 @@
 <div class="container">
   <div class="row">
     <% produtos.each do |produto| %>
-      <div class="col-md-4 text-center col-sm-4 col-xs-4 cor-padrao">
-        <div class="thumbnail product-box">
+      <div class="col-md-4 text-center col-sm-4 col-xs-4" style="padding: 15px">
+        <div class="thumbnail product-box cor-padrao borda" data-produto="<%= produto.descricao %>">
           <img src="<%= produto.link_imagem %>" width="150px"/>
-          <div class="caption" style="text-align: -webkit-center">
+          <div class="caption centralizar">
             <p class="descricao-produto"><%= produto.descricao %></p>
             <strong><p class="preco-produto">Preço: R$ <%= produto.preco %></p></strong>
             <p> Mercado: <%= produto.codigo_mercado == 1 ? 'Brasão' : 'Moura' %>   </p>
             <p><a href="<%= produto.link_endereco %>" target="_blank">Ver produto </a></p>
+            <button type="button" class="btn btn-success">Adicionar no Carrinho</button>
+            <button type="button" class="btn btn-danger hide">Remover no Carrinho</button>
           </div>
         </div>
       </div>
     <% end %>
   </div>
+  <div class="rodape">
+    <%= will_paginate @produtos, :container => false, :params => { :controller => 'produtos', :action => 'index' } %>
+  </div>
 </div>
 
-<%= will_paginate @produtos, :container => false, :params => { :controller => 'produtos', :action => 'index' } %>
+<script>
+
+    $('.thumbnail').each(function(){
+        if(JSON.parse(localStorage.getItem('produtos')).includes($(this).data('produto'))) {
+            $(this).find('.btn-danger').removeClass('hide');
+            $(this).find('.btn-success').addClass('hide');
+        }
+    });
+</script>

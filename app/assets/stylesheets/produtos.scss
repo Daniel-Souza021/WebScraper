@@ -1,5 +1,5 @@
 // Place all the styles related to the produtos controller here.
-// They will automatically be included in application.css.
+// They will automatically be included in application.scss.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .descricao-produto {
@@ -9,14 +9,49 @@
   text-overflow: ellipsis;
 }
 
-.cor-padrao{
-  background-color: #f3ffdb
-}
-body{
-  background-color: #f3ffdb !important;
+.cor-padrao {
+  background-color: white;
 }
 
-.preco-produto{
+.hide{
+  display: none !important;
+}
+
+.borda{
+    border: 2px solid #00000061;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.thumbnail {
+  padding: 10px;
+}
+.caption {
+  padding-top: 10px;
+}
+
+.paginacao {
+  background-color: #0FAA8B;
+}
+
+.centralizar {
+  text-align: -webkit-center;
+  justify-content: center;
+}
+
+.rodape {
+  width: fit-content;
+  background-color: white;
+}
+
+body {
+  background-repeat: no-repeat;
+  background-image: url(https://img.freepik.com/fotos-gratis/supermercado-de-borrao-abstrata-e-loja-de-varejo_74190-7546.jpg?w=1380&t=st=1666116139~exp=1666116739~hmac=8c5dd2f7e1fee44b591eac6a8fd422754b6ab4afa1169b520522dd5a213eb79a);
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.preco-produto {
   border: 2px solid #33462d;
   padding: 10px;
   width: 150px;
@@ -25,7 +60,7 @@ body{
   font-size: 14px;
 }
 
-.titulo{
+.titulo {
   text-align: center;
   margin-bottom: 50px;
 }

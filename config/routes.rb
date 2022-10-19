@@ -5,7 +5,12 @@ Rails.application.routes.draw do
   root to: 'produtos#index'
 
   resources :produtos do
-    post :filtrar, on: :collection
+    post :filtrar,on: :collection
     get 'produtos/index/:page' , to: 'produtos#index'
+  end
+
+  resources :carrinhos do
+    collection do
+    end
   end
 end
