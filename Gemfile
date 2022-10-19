@@ -10,6 +10,8 @@ gem 'watir'
 gem 'will_paginate'
 gem 'pry'
 gem 'jquery-rails'
+gem 'bootstrap', '~> 4.3.1'
+gem 'sprockets-rails'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
