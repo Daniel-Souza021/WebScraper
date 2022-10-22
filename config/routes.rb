@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :carrinhos do
     collection do
+      post :busca_produtos
     end
   end
 end

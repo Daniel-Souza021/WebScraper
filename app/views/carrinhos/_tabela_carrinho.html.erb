@@ -1,0 +1,98 @@
+<div class="container">
+  <% if produtos.present? %>
+    <table class="table table-bordered">
+      <thead>
+      <tr class="table-info">
+        <th scope="col">Produto</th>
+        <th scope="col">Brasão</th>
+        <th scope="col">Moura</th>
+        <th scope="col">Melhor Preço</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% total_melhor_preco = 0 %>
+      <% produtos.group_by(&:descricao).each do |descricao, reg_mercados| %>
+        <% reg_mercados = reg_mercados.sort_by(&:codigo_mercado) %>
+        <% melhor_preco = if reg_mercados.first.preco.to_d >= reg_mercados.last.preco.to_d
+                            total_melhor_preco += reg_mercados.last.preco.to_d
+                            reg_mercados.last.preco
+                          else
+                            total_melhor_preco += reg_mercados.first.preco.to_d
+                            reg_mercados.first.preco
+                          end
+
+        %>
+        <% if reg_mercados.first.preco.to_d > reg_mercados.last.preco.to_d
+             class_brasao = ''
+             class_moura = 'bg-success'
+           elsif reg_mercados.first.preco.to_d < reg_mercados.last.preco.to_d
+             class_brasao = 'bg-success'
+             class_moura = ''
+           else
+             class_brasao = ''
+             class_moura = ''
+           end
+        %>
+        <tr class="table-info">
+          <td><%= descricao %></td>
+          <td class="<%= class_brasao %>"><%= reg_mercados.first.preco.to_s %></td>
+          <td class="<%= class_moura %>"><%= reg_mercados.last.preco.to_s %></td>
+          <td><%= melhor_preco.to_s %></td>
+        </tr>
+      <% end %>
+      </tbody>
+
+      <tfoot>
+      <tr class="table-secondary">
+        <td>TOTAL</td>
+        <% total_brasao = produtos.mercado_brasao.map { |prod| prod.preco.to_d }.sum %>
+        <% total_moura = produtos.mercado_moura.map { |prod| prod.preco.to_d }.sum %>
+        <% if total_brasao > total_moura
+             class_brasao = ''
+             class_moura = 'bg-success'
+           elsif total_brasao < total_moura
+             class_brasao = 'bg-success'
+             class_moura = ''
+
+           else
+             class_brasao = ''
+             class_moura = ''
+           end
+        %>
+        <td class="<%= class_brasao %>" style="font-weight: bold"><%= total_brasao.to_s %></td>
+        <td class="<%= class_moura %>" style="font-weight: bold"><%= total_moura.to_s %></td>
+        <td style="font-weight: bold"><%= total_melhor_preco.to_s %></td>
+      </tr>
+      </tfoot>
+    </table>
+  <% else %>
+
+    <table class="table table-bordered">
+      <thead>
+      <tr class="table-info">
+        <th scope="col">Produto</th>
+        <th scope="col">Brasão</th>
+        <th scope="col">Moura</th>
+        <th scope="col">Melhor Preço</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr class="table-info">
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      </tbody>
+
+      <tfoot>
+      <tr class="table-secondary">
+        <td>TOTAL</td>
+        <td style="font-weight: bold"></td>
+        <td style="font-weight: bold"></td>
+        <td style="font-weight: bold"></td>
+      </tr>
+      </tfoot>
+    </table>
+  <% end %>
+</div>
