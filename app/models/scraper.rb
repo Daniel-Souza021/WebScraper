@@ -55,7 +55,7 @@ class Scraper
     end
 
     def busca_pesquisas_chaves
-      %w[arroz]
+      %w[arroz, feijão, sal, açucar, macarrão, Óleo de soja, farinha de trigo, farinha de milho, leite, café, ovo, sabão]
     end
 
     def script_scroll_page
