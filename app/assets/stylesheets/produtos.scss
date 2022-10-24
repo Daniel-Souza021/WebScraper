@@ -1,5 +1,5 @@
 // Place all the styles related to the produtos controller here.
-// They will automatically be included in application.scss.
+// They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .descricao-produto {
@@ -9,6 +9,12 @@
   text-overflow: ellipsis;
 }
 
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 0 !important;
+  margin-left: -15px;
+}
 .cor-padrao {
   background-color: white;
 }

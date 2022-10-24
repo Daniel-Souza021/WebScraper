@@ -12,7 +12,6 @@ class CarrinhosController < ApplicationController
       codigo_mercado,
       link_imagem,
       link_endereco").where(descricao: JSON.parse(params['produtos'])).where(created_at: Date.today.all_day)
-
     else
       @produtos = []
     end

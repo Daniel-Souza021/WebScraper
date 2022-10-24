@@ -47,13 +47,12 @@
         <td>TOTAL</td>
         <% total_brasao = produtos.mercado_brasao.map { |prod| prod.preco.to_d }.sum %>
         <% total_moura = produtos.mercado_moura.map { |prod| prod.preco.to_d }.sum %>
-        <% if total_brasao > total_moura
+        <% if total_brasao.to_d > total_moura.to_d
              class_brasao = ''
              class_moura = 'bg-success'
-           elsif total_brasao < total_moura
+           elsif total_brasao.to_d < total_moura.to_d
              class_brasao = 'bg-success'
              class_moura = ''
-
            else
              class_brasao = ''
              class_moura = ''
@@ -65,6 +64,32 @@
       </tr>
       </tfoot>
     </table>
+
+    <div class="card card-stats">
+      <div class="card-body ">
+        <div class="row">
+          <div class="col-6">
+            <div class="numbers">
+              <p class="card-category">Economia em relação ao Brasão</p>
+              <h4 class="card-title">R$ <%=total_moura - total_melhor_preco%></h4>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="numbers">
+              <p class="card-category">Economia em relação ao Moura</p>
+              <h4 class="card-title">R$ <%=total_brasao - total_melhor_preco%></h4>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer ">
+          <div class="stats">
+            <i class="fa fa-calendar-o">*Considerando o melhor preço de ambos os mercados</i>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
   <% else %>
 
     <table class="table table-bordered">

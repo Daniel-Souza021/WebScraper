@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :produtos do
     post :filtrar,on: :collection
     get 'produtos/index/:page' , to: 'produtos#index'
+    post :historico, on: :collection
   end
 
   resources :carrinhos do

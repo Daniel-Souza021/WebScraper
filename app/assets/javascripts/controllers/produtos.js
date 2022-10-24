@@ -28,4 +28,16 @@ $(function () {
         }
     })
 
+    $(document).delegate(".historico", 'click', function () {
+        $.ajax({
+            method: 'POST',
+            beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+            url: root_url + 'produtos/historico',
+            data: {produto: $(this).data('produto')},
+            success: function () {
+                $("#staticBackdrop").modal('show');
+            }
+        })
+    })
+
 });

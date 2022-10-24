@@ -1,8 +1,10 @@
 <p id="notice"><%= notice %></p>
-<div id="carrinho">
+
+<div class="container" id="carrinho" style="float: left">
   <a href="<%= Rails.application.routes.url_helpers.carrinhos_path %>" target="_blank">Ir para o Carrinho!</a>
 </div>
 
+<div id="modal-historico"></div>
 <%= form_for(:produto, url: { action: :filtrar }, method: :post, remote: true) do |form| %>
   <div class="row centralizar">
     <div class="col-xs-12 col-sm-12">

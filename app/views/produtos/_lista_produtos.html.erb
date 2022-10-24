@@ -1,6 +1,7 @@
-<div class="container">
+<% if produtos.first.present? %>
   <p class="rodape">Última atualização em: <%= produtos.first.created_at.to_time.getlocal.strftime("%d/%m/%Y %H:%M") %></p>
-
+<% end %>
+<div class="container">
   <div class="row">
     <% produtos.each do |produto| %>
       <div class="col-md-4 text-center col-sm-4 col-xs-4" style="padding: 15px">
@@ -11,6 +12,7 @@
             <strong><p class="preco-produto">Preço: R$ <%= produto.preco %></p></strong>
             <p> Mercado: <%= produto.codigo_mercado == 1 ? 'Brasão' : 'Moura' %>   </p>
             <p><a href="<%= produto.link_endereco %>" target="_blank">Ver produto </a></p>
+            <p><a class="historico" data-produto="<%= produto.descricao %>">Ver Historico </a></p>
             <button type="button" class="btn btn-success">Adicionar no Carrinho</button>
             <button type="button" class="btn btn-danger hide">Remover no Carrinho</button>
           </div>

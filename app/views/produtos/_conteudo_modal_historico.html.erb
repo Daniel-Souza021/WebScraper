@@ -1,0 +1,36 @@
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Histórico de Preço</h5>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped" style="width: 100%;">
+          <thead>
+          <tr>
+            <th>Data</th>
+            <th>Produto</th>
+            <th>Brasão</th>
+            <th>Moura</th>
+          </tr>
+          </thead>
+          <tbody>
+          <% produtos.group_by { |produto| produto.created_at.to_time.getlocal.strftime("%d/%m/%Y") }.sort.each do |data, regs| %>
+            <% regs = regs.sort_by(&:codigo_mercado) %>
+            <tr>
+              <td><%= data %></td>
+              <td><%= regs.first.descricao %></td>
+              <td><%= regs.first.preco.to_s %></td>
+              <td><%= regs.last.preco.to_s %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
