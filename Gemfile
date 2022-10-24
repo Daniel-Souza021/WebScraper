@@ -11,7 +11,8 @@ gem 'will_paginate'
 gem 'pry'
 gem 'jquery-rails'
 gem 'bootstrap', '~> 4.3.1'
-gem 'sprockets-rails'
+gem 'bootstrap-sass', '3.3.4.1'
+gem 'font-awesome-sass-rails'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
