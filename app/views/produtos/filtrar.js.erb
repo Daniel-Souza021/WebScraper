@@ -1,8 +1,12 @@
 $("#lista_produtos").html("<%= j render partial: 'lista_produtos', locals: {produtos: @produtos} %>");
 
 $('.thumbnail').each(function () {
-    if (JSON.parse(localStorage.getItem('produtos')).includes($(this).data('produto'))) {
-        $(this).find('.btn-danger').removeClass('hide');
-        $(this).find('.btn-success').addClass('hide');
+    var produtos = JSON.parse(localStorage.getItem('produtos'));
+    if (produtos) {
+        $(".badge-pill").text(produtos.length);
+        if (produtos.includes($(this).data('produto'))) {
+            $(this).find('.remove-carrinho').removeClass('hide');
+            $(this).find('.adiciona-carrinho').addClass('hide');
+        }
     }
 });

@@ -1,22 +1,25 @@
 <p id="notice"><%= notice %></p>
-
-<div class="container" id="carrinho" style="float: left">
-  <a href="<%= Rails.application.routes.url_helpers.carrinhos_path %>" target="_blank">Ir para o Carrinho!</a>
-</div>
-
-<div id="modal-historico"></div>
-<%= form_for(:produto, url: { action: :filtrar }, method: :post, remote: true) do |form| %>
-  <div class="row centralizar">
-    <div class="col-xs-12 col-sm-12">
-      <h3 style=" font-family: verdana, sans-serif;">Consulta de Preços</h3>
-    </div>
-    <div class="input-group col-xs-12 col-sm-8">
-      <%= form.text_field(:descricao, class: 'form-control', placeholder: "Busque um produto...") %>
-      <div class="input-group-append">
-        <%= form.submit('Buscar', class: 'btn btn-secondary') %>
+<div class="container">
+  <div id="modal-historico"></div>
+  <%= form_for(:filtros, url: { action: :index }, method: :patch, remote: true) do |form| %>
+    <div class="row centralizar">
+      <div class="col-xs-12 col-sm-8">
+        <h3 style="font-family: verdana, sans-serif;">Consulta de Preços</h3>
+        <div class="col-xs-12 col-sm-12" style="display: inline-flex;">
+          <%= form.text_field(:descricao, class: 'form-control', placeholder: "Busque um produto...", value: params[:filtros]) %>
+          <%= form.submit("Buscar", class: 'btn btn-info') %>
+        </div>
       </div>
     </div>
-<% end %>
+    <div class="sidenav">
+      <a href="<%= Rails.application.routes.url_helpers.carrinhos_path %>" target="_blank">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-cart-fill" viewBox="0 0 16 16">
+          <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+        </svg>
+        <span class="badge badge-pill bg-danger">0</span>
+      </a>
+    </div>
+  <% end %>
 </div>
 
 <div id="lista_produtos">

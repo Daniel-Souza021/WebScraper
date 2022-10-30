@@ -2,16 +2,18 @@
   <div class="modal-dialog modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Histórico de Preço</h5>
+        <h4 class="modal-title alinhado-centro" id="staticBackdropLabel">Histórico de Preço</h4>
+      </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel"><strong>Produto: <%= produtos.first.descricao %></strong></h5>
       </div>
       <div class="modal-body">
         <table class="table table-striped" style="width: 100%;">
           <thead>
           <tr>
             <th>Data</th>
-            <th>Produto</th>
-            <th>Brasão</th>
-            <th>Moura</th>
+            <th class="alinhado-direita">Brasão</th>
+            <th class="alinhado-direita">Moura</th>
           </tr>
           </thead>
           <tbody>
@@ -19,9 +21,8 @@
             <% regs = regs.sort_by(&:codigo_mercado) %>
             <tr>
               <td><%= data %></td>
-              <td><%= regs.first.descricao %></td>
-              <td><%= regs.first.preco.to_s %></td>
-              <td><%= regs.last.preco.to_s %></td>
+              <td class="alinhado-direita">R$ <%= regs.first.preco.to_s.gsub('.', ',') %></td>
+              <td class="alinhado-direita">R$ <%= regs.last.preco.to_s.gsub('.', ',') %></td>
             </tr>
           <% end %>
           </tbody>
@@ -29,7 +30,7 @@
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>

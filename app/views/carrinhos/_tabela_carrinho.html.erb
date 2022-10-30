@@ -1,123 +1,113 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 <div class="container">
   <% if produtos.present? %>
-    <table class="table table-bordered">
+
+    <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 20px" id="limpar-carrinho">Limpar Carrinho <i class="fa fa-trash" aria-hidden="true"></i>
+    </button>
+
+    <table class="table table-striped tabela-principal">
       <thead>
-      <tr class="table-info">
-        <th scope="col">Produto</th>
-        <th scope="col">Brasão</th>
-        <th scope="col">Moura</th>
-        <th scope="col">Melhor Preço</th>
+      <tr>
+        <th>Produto</th>
+        <th class="alinhado-direita">Brasão</th>
+        <th class="alinhado-direita">Moura</th>
+        <th class="alinhado-direita">Melhor Preço</th>
       </tr>
       </thead>
       <tbody>
       <% total_melhor_preco = 0 %>
       <% produtos.group_by(&:descricao).each do |descricao, reg_mercados| %>
-        <% reg_mercados = reg_mercados.sort_by(&:codigo_mercado) %>
-        <% melhor_preco = if reg_mercados.first.preco.to_d >= reg_mercados.last.preco.to_d
-                            total_melhor_preco += reg_mercados.last.preco.to_d
-                            reg_mercados.last.preco
-                          else
-                            total_melhor_preco += reg_mercados.first.preco.to_d
-                            reg_mercados.first.preco
-                          end
+        <%
+          reg_mercados = reg_mercados.sort_by(&:codigo_mercado)
+          melhor_preco = if reg_mercados.first&.preco.to_d >= reg_mercados.last&.preco.to_d
+                           total_melhor_preco += reg_mercados.last&.preco.to_d
+                           reg_mercados.last&.preco
+                         else
+                           total_melhor_preco += reg_mercados.first&.preco.to_d
+                           reg_mercados.first&.preco
+                         end
 
+          if reg_mercados.first&.preco.to_d > reg_mercados.last&.preco.to_d
+            class_brasao = ''
+            class_moura = 'destaque-preco'
+          elsif reg_mercados.first&.preco.to_d < reg_mercados.last&.preco.to_d
+            class_brasao = 'destaque-preco'
+            class_moura = ''
+          else
+            class_brasao = ''
+            class_moura = ''
+          end
         %>
-        <% if reg_mercados.first.preco.to_d > reg_mercados.last.preco.to_d
-             class_brasao = ''
-             class_moura = 'bg-success'
-           elsif reg_mercados.first.preco.to_d < reg_mercados.last.preco.to_d
-             class_brasao = 'bg-success'
-             class_moura = ''
-           else
-             class_brasao = ''
-             class_moura = ''
-           end
-        %>
-        <tr class="table-info">
+        <tr>
           <td><%= descricao %></td>
-          <td class="<%= class_brasao %>"><%= reg_mercados.first.preco.to_s %></td>
-          <td class="<%= class_moura %>"><%= reg_mercados.last.preco.to_s %></td>
-          <td><%= melhor_preco.to_s %></td>
+          <td class="<%= class_brasao %> alinhado-direita">R$ <%= reg_mercados.first&.preco.to_s.gsub('.', ',') %></td>
+          <td class="<%= class_moura %> alinhado-direita">R$ <%= reg_mercados.last&.preco.to_s.gsub('.', ',') %></td>
+          <td class="alinhado-direita">R$ <%= melhor_preco.to_s %></td>
         </tr>
       <% end %>
       </tbody>
 
       <tfoot>
-      <tr class="table-secondary">
-        <td>TOTAL</td>
+      <tr>
+        <td class="negrito">TOTAL</td>
         <% total_brasao = produtos.mercado_brasao.map { |prod| prod.preco.to_d }.sum %>
         <% total_moura = produtos.mercado_moura.map { |prod| prod.preco.to_d }.sum %>
         <% if total_brasao.to_d > total_moura.to_d
              class_brasao = ''
-             class_moura = 'bg-success'
+             class_moura = 'destaque-preco'
            elsif total_brasao.to_d < total_moura.to_d
-             class_brasao = 'bg-success'
+             class_brasao = 'destaque-preco'
              class_moura = ''
            else
              class_brasao = ''
              class_moura = ''
            end
         %>
-        <td class="<%= class_brasao %>" style="font-weight: bold"><%= total_brasao.to_s %></td>
-        <td class="<%= class_moura %>" style="font-weight: bold"><%= total_moura.to_s %></td>
-        <td style="font-weight: bold"><%= total_melhor_preco.to_s %></td>
+        <td class="<%= class_brasao %> negrito alinhado-direita">R$ <%= total_brasao.to_s.gsub('.', ',') %></td>
+        <td class="<%= class_moura %> negrito alinhado-direita">R$ <%= total_moura.to_s.gsub('.', ',') %></td>
+        <td class="negrito alinhado-direita">R$ <%= total_melhor_preco.to_s.gsub('.', ',') %></td>
       </tr>
       </tfoot>
     </table>
 
-    <div class="card card-stats">
-      <div class="card-body ">
-        <div class="row">
-          <div class="col-6">
-            <div class="numbers">
-              <p class="card-category">Economia em relação ao Brasão</p>
-              <h4 class="card-title">R$ <%=total_moura - total_melhor_preco%></h4>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="numbers">
-              <p class="card-category">Economia em relação ao Moura</p>
-              <h4 class="card-title">R$ <%=total_brasao - total_melhor_preco%></h4>
-            </div>
-          </div>
-        </div>
-        <div class="card-footer ">
-          <div class="stats">
-            <i class="fa fa-calendar-o">*Considerando o melhor preço de ambos os mercados</i>
-          </div>
+    <div class="col-md-6 col-xl-6">
+      <div class="card bg-c-red order-card">
+        <div class="card-block">
+          <h4 class="m-b-20">Em caso de compras somente no Brasão</h4>
+          <h2 class="text-right">
+            <i class="fa fa-money f-left"></i>
+            <span>Prejuízo de: R$ <%= (total_brasao - total_melhor_preco).to_s.gsub('.', ',') %></span>
+            <p class="observacao">*Considerando o melhor preço</p>
+          </h2>
         </div>
       </div>
+    </div>
 
+    <div class="col-md-6 col-xl-6">
+      <div class="card bg-c-red order-card">
+        <div class="card-block">
+          <h4 class="m-b-20">Em caso de compras somente no Moura</h4>
+          <h2 class="text-right">
+            <i class="fa fa-money f-left"></i>
+            <span>Prejuízo de: R$ <%= (total_moura - total_melhor_preco).to_s.gsub('.', ',') %></span>
+            <p class="observacao">*Considerando o melhor preço</p>
+          </h2>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 col-xl-12">
+      <div class="card bg-c-green order-card">
+        <div class="card-block">
+          <h4 class="m-b-20">Relação de Preço entre <%= (total_moura.to_d >= total_brasao) ? 'Brasão e Moura' : 'Moura e Brasão' %></h4>
+          <h2 class="text-right">
+            <i class="fa fa-money f-left"></i><span>Economia de: R$ <%= ((total_moura.to_d >= total_brasao) ? (total_moura - total_brasao) : (total_brasao - total_moura))  .to_s.gsub('.', ',') %></span></h2>
+        </div>
+      </div>
     </div>
 
   <% else %>
-
-    <table class="table table-bordered">
-      <thead>
-      <tr class="table-info">
-        <th scope="col">Produto</th>
-        <th scope="col">Brasão</th>
-        <th scope="col">Moura</th>
-        <th scope="col">Melhor Preço</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr class="table-info">
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-      </tr>
-      </tbody>
-
-      <tfoot>
-      <tr class="table-secondary">
-        <td>TOTAL</td>
-        <td style="font-weight: bold"></td>
-        <td style="font-weight: bold"></td>
-        <td style="font-weight: bold"></td>
-      </tr>
-      </tfoot>
-    </table>
+  <div class="alinhado-centro">
+    <h1> Nenhum Produto Adicionado!</h1>
+  </div>
   <% end %>
 </div>

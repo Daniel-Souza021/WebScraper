@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   resources :produtos do
     post :filtrar,on: :collection
-    get 'produtos/index/:page' , to: 'produtos#index'
+    get 'produtos/:page' , to: 'produtos#index'
     post :historico, on: :collection
   end
 
@@ -15,4 +15,6 @@ Rails.application.routes.draw do
       post :busca_produtos
     end
   end
+
+  patch ':controller', action: :filtrar
 end

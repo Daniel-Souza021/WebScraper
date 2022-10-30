@@ -7,10 +7,10 @@ ruby '2.6.10'
 gem 'whenever', require: false
 gem 'nokogiri'
 gem 'watir'
-gem 'will_paginate'
+gem 'will_paginate', "~> 3.1.7"
+gem 'will_paginate-bootstrap'
 gem 'pry'
 gem 'jquery-rails'
-gem 'bootstrap', '~> 4.3.1'
 gem 'bootstrap-sass', '3.3.4.1'
 gem 'font-awesome-sass-rails'
 
