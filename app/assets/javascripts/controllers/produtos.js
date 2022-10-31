@@ -15,7 +15,7 @@ $(function () {
         var produtos = JSON.parse(localStorage.getItem('produtos')),
             produto = $(this).closest('.thumbnail').data('produto');
         if (!produtos) produtos = [];
-        if (produtos.includes(produto)) produtos = produtos.filter(item => item !== produto);
+        if (produtos.includes(produto)) produtos = produtos.filter(function (item) {return item !== produto});
 
         localStorage.setItem('produtos', JSON.stringify(produtos));
         $(".badge-pill").text(produtos.length);
