@@ -80,6 +80,4 @@ test:
 #
 production:
   <<: *default
-  database: WebScraper_production
-  username: WebScraper
-  password: <%= ENV['WEBSCRAPER_DATABASE_PASSWORD'] %>
+  database: WebScraper_development
