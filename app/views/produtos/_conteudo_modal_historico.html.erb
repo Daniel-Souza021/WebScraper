@@ -21,8 +21,8 @@
             <% regs = regs.sort_by(&:codigo_mercado) %>
             <tr>
               <td><%= data %></td>
-              <td class="alinhado-direita">R$ <%= regs.first.preco.to_s.gsub('.', ',') %></td>
-              <td class="alinhado-direita">R$ <%= regs.last.preco.to_s.gsub('.', ',') %></td>
+              <td class="alinhado-direita"> <%= number_to_currency((regs.first.preco).to_d, unit: "R$ ", separator: ",") %></td>
+              <td class="alinhado-direita"> <%= number_to_currency((regs.last.preco).to_d, unit: "R$ ", separator: ",") %></td>
             </tr>
           <% end %>
           </tbody>

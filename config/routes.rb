@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   root to: 'produtos#index'
 
   resources :produtos do
-    post :filtrar,on: :collection
-    get 'produtos/:page' , to: 'produtos#index'
+    post :filtrar, on: :collection
+    get 'produtos/:page', to: 'produtos#index'
     post :historico, on: :collection
   end
 

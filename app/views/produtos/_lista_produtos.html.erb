@@ -9,8 +9,8 @@
         <div class="thumbnail product-box cor-padrao borda" data-produto="<%= produto.descricao %>">
           <img src="<%= produto.link_imagem %>" width="150px"/>
           <div class="caption centralizar">
-            <p class="descricao-produto"><%= produto.descricao %></p>
-            <strong><p class="preco-produto">Preço: R$ <%= produto.preco.to_s.gsub('.', ',') %></p></strong>
+            <p class="descricao-produto" title="<%= produto.descricao %>"><%= produto.descricao %></p>
+            <strong><p class="preco-produto">Preço: <%= number_to_currency((produto.preco).to_d, unit: "R$ ", separator: ",") %></p></strong>
             <p> Mercado: <%= produto.codigo_mercado == 1 ? 'Brasão' : 'Moura' %>   </p>
             <p><a href="<%= produto.link_endereco %>" target="_blank">Ver produto
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-up-right-square-fill" viewBox="0 0 16 16">
@@ -33,7 +33,7 @@
   </div>
 </div>
 <div class="rodape">
-  <%= will_paginate @produtos, renderer: BootstrapPagination::Rails, link_options: { target: '_self' } %>
+  <%= will_paginate @produtos, renderer: BootstrapPagination::Rails, params: {controller: 'produtos', action: 'index'} %>
 </div>
 <script>
     $('.thumbnail').each(function () {

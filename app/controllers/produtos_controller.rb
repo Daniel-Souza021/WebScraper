@@ -1,6 +1,6 @@
 class ProdutosController < ApplicationController
   def index
-    @produtos = Produto.busca_produtos params
+    @produtos = Produto.busca_produtos params.merge({filtros: {descricao: session[:filtros]["produtos#filtrar"]}})
   end
 
   def filtrar

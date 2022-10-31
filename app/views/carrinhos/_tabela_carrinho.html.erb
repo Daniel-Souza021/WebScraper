@@ -40,9 +40,9 @@
         %>
         <tr>
           <td><%= descricao %></td>
-          <td class="<%= class_brasao %> alinhado-direita">R$ <%= reg_mercados.first&.preco.to_s.gsub('.', ',') %></td>
-          <td class="<%= class_moura %> alinhado-direita">R$ <%= reg_mercados.last&.preco.to_s.gsub('.', ',') %></td>
-          <td class="alinhado-direita">R$ <%= melhor_preco.to_s %></td>
+          <td class="<%= class_brasao %> alinhado-direita"> <%= number_to_currency((reg_mercados.first&.preco).to_d, unit: "R$ ", separator: ",") %></td>
+          <td class="<%= class_moura %> alinhado-direita"> <%= number_to_currency((reg_mercados.last&.preco).to_d, unit: "R$ ", separator: ",") %></td>
+          <td class="alinhado-direita"> <%= number_to_currency((melhor_preco).to_d, unit: "R$ ", separator: ",") %></td>
         </tr>
       <% end %>
       </tbody>
@@ -63,9 +63,9 @@
              class_moura = ''
            end
         %>
-        <td class="<%= class_brasao %> negrito alinhado-direita">R$ <%= total_brasao.to_s.gsub('.', ',') %></td>
-        <td class="<%= class_moura %> negrito alinhado-direita">R$ <%= total_moura.to_s.gsub('.', ',') %></td>
-        <td class="negrito alinhado-direita">R$ <%= total_melhor_preco.to_s.gsub('.', ',') %></td>
+        <td class="<%= class_brasao %> negrito alinhado-direita"> <%= number_to_currency((total_brasao).to_d, unit: "R$ ", separator: ",") %></td>
+        <td class="<%= class_moura %> negrito alinhado-direita"> <%= number_to_currency((total_moura).to_d, unit: "R$ ", separator: ",") %></td>
+        <td class="negrito alinhado-direita"> <%= number_to_currency((total_melhor_preco).to_d, unit: "R$ ", separator: ",")%></td>
       </tr>
       </tfoot>
     </table>
@@ -76,7 +76,7 @@
           <h4 class="m-b-20">Em caso de compras somente no Brasão</h4>
           <h2 class="text-right">
             <i class="fa fa-money f-left"></i>
-            <span>Prejuízo de: R$ <%= (total_brasao - total_melhor_preco).to_s.gsub('.', ',') %></span>
+            <span>Prejuízo de: R$ <%= number_to_currency((total_brasao - total_melhor_preco).to_d, unit: "R$ ", separator: ",") %></span>
             <p class="observacao">*Considerando o melhor preço</p>
           </h2>
         </div>
@@ -89,7 +89,7 @@
           <h4 class="m-b-20">Em caso de compras somente no Moura</h4>
           <h2 class="text-right">
             <i class="fa fa-money f-left"></i>
-            <span>Prejuízo de: R$ <%= (total_moura - total_melhor_preco).to_s.gsub('.', ',') %></span>
+            <span>Prejuízo de: <%= number_to_currency((total_moura - total_melhor_preco).to_d, unit: "R$ ", separator: ",") %></span>
             <p class="observacao">*Considerando o melhor preço</p>
           </h2>
         </div>
@@ -98,9 +98,9 @@
     <div class="col-md-12 col-xl-12">
       <div class="card bg-c-green order-card">
         <div class="card-block">
-          <h4 class="m-b-20">Relação de Preço entre <%= (total_moura.to_d >= total_brasao) ? 'Brasão e Moura' : 'Moura e Brasão' %></h4>
+          <h4 class="m-b-20">Relação de Preço de <%= (total_moura.to_d >= total_brasao) ? 'Brasão para o Moura' : 'Moura para o Brasão' %></h4>
           <h2 class="text-right">
-            <i class="fa fa-money f-left"></i><span>Economia de: R$ <%= ((total_moura.to_d >= total_brasao) ? (total_moura - total_brasao) : (total_brasao - total_moura))  .to_s.gsub('.', ',') %></span></h2>
+            <i class="fa fa-money f-left"></i><span>Economia de: <%= ((total_moura.to_d >= total_brasao.to_d) ? number_to_currency((total_moura - total_brasao).to_d, unit: "R$ ", separator: ",") : number_to_currency((total_brasao - total_moura).to_d, unit: "R$", separator: ",", delimiter: "")) %></span></h2>
         </div>
       </div>
     </div>
