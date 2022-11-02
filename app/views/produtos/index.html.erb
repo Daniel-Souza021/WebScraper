@@ -6,7 +6,7 @@
       <div class="col-xs-12 col-sm-8">
         <h3 style="font-family: verdana, sans-serif;">Consulta de Preços</h3>
         <div class="col-xs-12 col-sm-12" style="display: inline-flex;">
-          <%= form.text_field(:descricao, class: 'form-control', placeholder: "Busque um produto...", value: params[:filtros]) %>
+          <%= form.text_field(:descricao, class: 'form-control', placeholder: "Busque um produto...", value: (session[:filtros]["produtos#filtrar"] if session[:filtros])) %>
           <%= form.submit("Buscar", class: 'btn btn-info', data: { disable_with: "Pesquisando..." }) %>
         </div>
       </div>

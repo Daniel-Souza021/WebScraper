@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
   def filtros_sessao
     if session
       session[:filtros] ||= {}
-      session[:filtros][:"#{params[:controller]}##{params[:action]}"] = params.dig(:produto,:descricao).to_s
+      session[:filtros][:"#{params[:controller]}##{params[:action]}"] = params.dig(:filtros,:descricao).to_s if params[:filtros].present?
     end
 
   end
