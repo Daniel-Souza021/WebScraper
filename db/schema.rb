@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_11_175430) do
+ActiveRecord::Schema.define(version: 2022_11_02_182516) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -23,6 +23,8 @@ ActiveRecord::Schema.define(version: 2022_10_11_175430) do
     t.datetime "updated_at", null: false
     t.string "link_imagem"
     t.string "link_endereco"
+    t.index ["descricao"], name: "idx_produtos_descricao"
+    t.index ["descricao"], name: "index_produtos_on_descricao"
   end
 
 end
