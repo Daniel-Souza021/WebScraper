@@ -6,7 +6,7 @@
 # Example:
 
 env :PATH, ENV['PATH']
-set :output, "#{path}/log/cron.log"
+set :output, '/log/cron_log.log'
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -20,6 +20,6 @@ set :output, "#{path}/log/cron.log"
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '11:20 am' do
+every 1.day, at: '11:30 am' do
   runner "Scraper.extrair_dados"
 end
