@@ -20,6 +20,6 @@ set :output, "#{path}/log/cron.log"
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day do
+every :day, at: "12:30am" do
   runner "Scraper.extrair_dados"
 end
