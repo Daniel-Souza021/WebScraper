@@ -17,7 +17,7 @@
           </tr>
           </thead>
           <tbody>
-          <% produtos.order(:created_at).group_by { |produto| produto.created_at.to_time.getlocal.strftime("%d/%m/%Y") }.each do |data, regs| %>
+          <% produtos.order(created_at: :desc).group_by { |produto| produto.created_at.to_time.getlocal.strftime("%d/%m/%Y") }.each do |data, regs| %>
             <% regs = regs.sort_by(&:codigo_mercado) %>
             <tr>
               <td><%= data %></td>

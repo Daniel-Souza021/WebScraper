@@ -4,7 +4,7 @@
 # http://en.wikipedia.org/wiki/Cron
 
 # Example:
-set :output, '/log/cron_log.log'
+set :output, 'log/cron_log.log'
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -18,6 +18,6 @@ set :output, '/log/cron_log.log'
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '11:40 am' do
+every 1.day, at: '21:34 pm' do
   runner "Scraper.extrair_dados"
 end
