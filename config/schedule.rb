@@ -18,6 +18,6 @@ set :output, 'log/cron_log.log'
 
 # Learn more: http://github.com/javan/whenever
 
-every 1.day, at: '21:34 pm' do
+every 1.day, at: '00:54 am' do
   runner "Scraper.extrair_dados"
 end
