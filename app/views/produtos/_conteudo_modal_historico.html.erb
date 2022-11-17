@@ -18,11 +18,13 @@
           </thead>
           <tbody>
           <% produtos.order(created_at: :desc).group_by { |produto| produto.created_at.to_time.getlocal.strftime("%d/%m/%Y") }.each do |data, regs| %>
-            <% regs = regs.sort_by(&:codigo_mercado) %>
+            <% reg_mercado_1 = regs.map{|prod| prod if prod.codigo_mercado == 1}.compact.first %>
+            <% reg_mercado_2 = regs.map{|prod| prod if prod.codigo_mercado == 2}.compact.first %>
+            <% next if reg_mercado_1.blank? || reg_mercado_2.blank? %>
             <tr>
               <td><%= data %></td>
-              <td class="alinhado-direita"> <%= number_to_currency((regs.first.preco).to_d, unit: "R$ ", separator: ",") %></td>
-              <td class="alinhado-direita"> <%= number_to_currency((regs.last.preco).to_d, unit: "R$ ", separator: ",") %></td>
+              <td class="alinhado-direita"> <%= number_to_currency((reg_mercado_1.preco).to_d, unit: "R$ ", separator: ",") %></td>
+              <td class="alinhado-direita"> <%= number_to_currency((reg_mercado_2.preco).to_d, unit: "R$ ", separator: ",") %></td>
             </tr>
           <% end %>
           </tbody>
