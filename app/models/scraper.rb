@@ -15,7 +15,7 @@ class Scraper
         pesquisas_chaves.each do |pesquisa_chave|
           browser = Watir::Browser.new(:chrome, {headless: true})
           browser.goto "#{endereco_site}/busca/#{pesquisa_chave}"
-
+          puts "1 #{endereco_site} - #{pesquisa_chave}"
           25.times do
             sleep(0.10)
             browser.execute_script script_scroll_page
@@ -35,6 +35,7 @@ class Scraper
           end
 
           browser.close
+          puts "2 #{endereco_site} - #{pesquisa_chave}"
           sleep(0.2)
         end
       end
@@ -55,7 +56,7 @@ class Scraper
     end
 
     def busca_pesquisas_chaves
-      %w[arroz, feijão, sal, açucar, macarrão, Óleo de soja, farinha de trigo, farinha de milho, leite, café, ovo, sabão]
+      ['arroz', 'feijao', 'sal', 'açucar', 'macarrao', 'Oleo de soja', 'farinha de trigo', 'farinha de milho', 'leite', 'cafe', 'ovo', 'sabao']
     end
 
     def script_scroll_page
