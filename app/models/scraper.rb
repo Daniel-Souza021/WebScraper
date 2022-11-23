@@ -15,7 +15,7 @@ class Scraper
         pesquisas_chaves.each do |pesquisa_chave|
           browser = Watir::Browser.new(:chrome, {headless: true})
           browser.goto "#{endereco_site}/busca/#{pesquisa_chave}"
-          puts "1 #{endereco_site} - #{pesquisa_chave}"
+
           25.times do
             sleep(0.10)
             browser.execute_script script_scroll_page
@@ -35,7 +35,6 @@ class Scraper
           end
 
           browser.close
-          puts "2 #{endereco_site} - #{pesquisa_chave}"
           sleep(0.2)
         end
       end
